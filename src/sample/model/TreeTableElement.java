@@ -7,7 +7,6 @@ import service.xml.ActivityCode;
 import service.xml.Step;
 import service.xml.XMLHelper;
 
-import javax.swing.tree.DefaultMutableTreeNode;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -21,8 +20,7 @@ public class TreeTableElement {
     private int objectId;
     private int parentId;
     private SimpleStringProperty weight;
-
-    private SimpleDoubleProperty percent;
+    private SimpleStringProperty percent;
     private SimpleStringProperty pvVolume;
 
     private static SimpleStringProperty EMPTY = new SimpleStringProperty("");
@@ -44,7 +42,7 @@ public class TreeTableElement {
         this.finishDate = new SimpleStringProperty(df.format(activity.getStartDate()));
 
         this.weight = new SimpleStringProperty("");
-        this.percent = new SimpleDoubleProperty(0.00);
+        this.percent = new SimpleStringProperty("0%");
         this.pvVolume = new SimpleStringProperty("");
         if (xmlHelper.getActivityCodeAssignmentHelper().getListAssignmentByActivityId(objectId) != null) {
             pvType = new SimpleStringProperty(
@@ -65,11 +63,11 @@ public class TreeTableElement {
         this.startDate = EMPTY;
         this.finishDate = EMPTY;
         this.weight = EMPTY;
-        this.percent = EMPTY_DOUBLE;
+        this.percent = EMPTY;
         this.pvVolume = EMPTY;
     }
 
-    public TreeTableElement(Step step) {
+    public TreeTableElement(Step step, XMLHelper xmlHelper) {
         this.name = new SimpleStringProperty(step.getName());
         this.id = EMPTY;
         this.objectId = step.getObjectId();
@@ -79,8 +77,13 @@ public class TreeTableElement {
         this.startDate = EMPTY;
         this.finishDate = EMPTY;
         this.weight = new SimpleStringProperty(String.valueOf(step.getWeight()));
-        this.percent = new SimpleDoubleProperty(step.getPercentComplete());
-        this.pvVolume = EMPTY;
+        this.percent = new SimpleStringProperty(step.getPercentComplete());
+
+        if (xmlHelper.getUdfValueHelper().get(objectId) != null) {
+            pvVolume = new SimpleStringProperty(String.valueOf(xmlHelper.getUdfValueHelper().get(objectId).getPV()));
+        } else {
+            pvVolume = new SimpleStringProperty("---");
+        }
     }
 
     public SimpleStringProperty getName() {
@@ -111,7 +114,7 @@ public class TreeTableElement {
         return finishDate;
     }
 
-    public SimpleDoubleProperty getPercent() {
+    public SimpleStringProperty getPercent() {
         return percent;
     }
 

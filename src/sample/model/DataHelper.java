@@ -2,7 +2,6 @@ package sample.model;
 
 import javafx.scene.control.TreeItem;
 import service.xml.*;
-import sun.reflect.generics.tree.Tree;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -160,7 +159,7 @@ public class DataHelper {
     private void addStep(TreeItem parentNode, int nodeId) {
         if (xmlHelper.getStepHelper().get(nodeId) != null) {
             for (Step step : xmlHelper.getStepHelper().get(nodeId)) {
-                parentNode.getChildren().add(new TreeItem(new TreeTableElement(step)));
+                parentNode.getChildren().add(new TreeItem(new TreeTableElement(step, xmlHelper)));
             }
         }
     }

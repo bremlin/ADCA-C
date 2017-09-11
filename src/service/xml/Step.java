@@ -13,7 +13,7 @@ public class Step extends DefaultMutableTreeNode {
 
     private double weight;
     private double weightPercent;
-    private double percentComplete;
+    private String percentComplete;
 
     public Step(Element stepElement) {
         this.name = stepElement.getChild(XMLTypes.NAME).getText();
@@ -21,7 +21,7 @@ public class Step extends DefaultMutableTreeNode {
         this.activityObjectId = Integer.parseInt(stepElement.getChild(XMLTypes.ACTIVITY_ID).getText());
         this.weight = Double.parseDouble(stepElement.getChild(XMLTypes.WEIGHT).getText());
         this.weightPercent = Double.parseDouble(stepElement.getChild(XMLTypes.WEIGHT_PERCENT).getText());
-        this.percentComplete = Double.parseDouble(stepElement.getChild(XMLTypes.PERCENT_COMPLETE).getText());
+        this.percentComplete = stepElement.getChild(XMLTypes.PERCENT_COMPLETE).getText();
     }
 
     public String getName() {
@@ -44,7 +44,7 @@ public class Step extends DefaultMutableTreeNode {
         return weightPercent;
     }
 
-    public double getPercentComplete() {
+    public String getPercentComplete() {
         return percentComplete;
     }
 }

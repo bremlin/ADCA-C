@@ -2,12 +2,13 @@ package service.xml;
 
 import org.jdom2.Element;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
-public class UDFValueHelper extends ArrayList<UDFValue> {
+public class UDFValueHelper extends HashMap<Integer, UDFValue> {
     public UDFValueHelper(Element element) {
-        for (Element udfValue : element.getChildren()) {
-            this.add(new UDFValue(udfValue));
+        for (Element udfValueElement : element.getChildren()) {
+            UDFValue udfValue = new UDFValue(udfValueElement);
+            this.put(udfValue.getStepObjectId(), udfValue);
         }
     }
 }

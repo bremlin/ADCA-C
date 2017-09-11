@@ -7,6 +7,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
+import javafx.scene.control.cell.TextFieldTreeTableCell;
 import javafx.stage.FileChooser;
 import sample.model.DataHelper;
 import sample.model.TreeTableElement;
@@ -48,7 +49,7 @@ public class Controller implements Initializable {
     @FXML
     public TreeTableColumn<TreeTableElement, String> weight;
     @FXML
-    public TreeTableColumn<TreeTableElement, Number> percentComplete;
+    public TreeTableColumn<TreeTableElement, String> percentComplete;
 
     private XMLHelper xmlHelper;
     private DataHelper dataHelper = new DataHelper();
@@ -64,6 +65,7 @@ public class Controller implements Initializable {
             xmlHelper = new XMLHelper(xmlFile);
             dataHelper.setData(xmlHelper);
             treeTableView.setRoot(dataHelper.getRoot());
+            treeTableView.setEditable(true);
             columnSettings();
 
             setGroupData();
@@ -89,6 +91,8 @@ public class Controller implements Initializable {
         pvVolume.setCellValueFactory(param -> param.getValue().getValue().getPvVolume());
         weight.setCellValueFactory(param -> param.getValue().getValue().getWeight());
         percentComplete.setCellValueFactory(param -> param.getValue().getValue().getPercent());
+
+        percentComplete.setCellFactory(TextFieldTreeTableCell.forTreeTableColumn());
     }
 
     public void save(ActionEvent actionEvent) {
@@ -138,10 +142,6 @@ public class Controller implements Initializable {
     }
 
     private boolean checkGroupAndFilter() {
-        if (groupOne.getSelectionModel().getSelectedItem() != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return groupOne.getSelectionModel().getSelectedItem() != null;
     }
 }

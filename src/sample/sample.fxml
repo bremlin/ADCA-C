@@ -1,57 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="sample.Controller">
+<AnchorPane prefHeight="720.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <children>
         <ToolBar prefHeight="40.0" prefWidth="1300.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <items>
-                <Button mnemonicParsing="false" onAction="#loadProject" text="Загрузить"/>
-                <Button mnemonicParsing="false" onAction="#save" text="Сохранить"/>
-                <Label fx:id="currentDate" alignment="CENTER" contentDisplay="CENTER" text="currentDate"/>
+                <Button mnemonicParsing="false" onAction="#loadProject" text="Загрузить" />
+                <Button mnemonicParsing="false" onAction="#save" text="Сохранить" />
+                <Label fx:id="currentDate" alignment="CENTER" contentDisplay="CENTER" text="currentDate" />
             </items>
         </ToolBar>
-        <ToolBar layoutY="40.0" prefHeight="40.0" prefWidth="1300.0" AnchorPane.leftAnchor="0.0"
-                 AnchorPane.rightAnchor="0.0">
+        <ToolBar layoutY="40.0" prefHeight="40.0" prefWidth="1300.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <items>
-                <Label text="Группировка:"/>
-                <ComboBox fx:id="groupOne" onAction="#groupOneAction" prefWidth="150.0"/>
-                <ComboBox fx:id="groupTwo" onAction="#groupTwoAction" prefWidth="150.0"/>
-                <ComboBox fx:id="groupThree" prefWidth="150.0"/>
-                <Separator prefHeight="30.0" prefWidth="16.0"/>
-                <Label text="Фильтр:"/>
-                <ComboBox fx:id="filterOne" onAction="#filter" prefWidth="150.0"/>
-                <ComboBox fx:id="filterTwo" onAction="#filter" prefWidth="150.0"/>
-                <Separator prefHeight="30.0" prefWidth="16.0"/>
-                <Button mnemonicParsing="false" onAction="#apply" text="Применить"/>
-                <Button mnemonicParsing="false" onAction="#cancel" text="Сбросить"/>
+                <Label text="Группировка:" />
+                <ComboBox fx:id="groupOne" onAction="#groupOneAction" prefWidth="180.0" />
+                <ComboBox fx:id="groupTwo" onAction="#groupTwoAction" prefWidth="180.0" />
+                <ComboBox fx:id="groupThree" prefWidth="180.0" />
+                <Separator prefHeight="30.0" prefWidth="16.0" />
+                <Label text="Фильтр:" />
+                <ComboBox fx:id="filterOne" onAction="#filter" prefWidth="180.0" />
+                <ComboBox fx:id="filterTwo" onAction="#filter" prefWidth="180.0" />
+                <Separator prefHeight="30.0" prefWidth="16.0" />
+                <Button mnemonicParsing="false" onAction="#apply" text="Применить" />
+                <Button mnemonicParsing="false" onAction="#cancel" text="Сбросить" />
             </items>
         </ToolBar>
-        <TreeTableView fx:id="treeTableView" layoutY="80.0" prefHeight="639.0" prefWidth="1300.0"
-                       AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                       AnchorPane.topAnchor="80.0">
+        <TreeTableView fx:id="treeTableView" layoutY="80.0" prefHeight="639.0" prefWidth="1300.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
             <columns>
-                <TreeTableColumn fx:id="idColumn" maxWidth="150.0" minWidth="105.0" prefWidth="105.0" text="ID"/>
-                <TreeTableColumn fx:id="nameColumn" minWidth="150.0" prefWidth="670.0" text="Наименование"/>
-                <TreeTableColumn fx:id="startDateColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0"
-                                 text="Начало"/>
-                <TreeTableColumn fx:id="finishDateColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0"
-                                 text="Окончание "/>
-                <TreeTableColumn fx:id="pvTypeColumn" maxWidth="75.0" minWidth="50.0" prefWidth="50.0" text="Тип ФО"/>
-                <TreeTableColumn fx:id="pvVolume" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="ФО"/>
-                <TreeTableColumn fx:id="weight" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" text="Вес шага"/>
-                <TreeTableColumn fx:id="percentComplete" maxWidth="100.0" minWidth="100.0" prefWidth="100.0"
-                                 text="\% выполнения"/>
+                <TreeTableColumn fx:id="idColumn" maxWidth="300.0" minWidth="150.0" prefWidth="150.0" text="ID" />
+                <TreeTableColumn fx:id="nameColumn" minWidth="150.0" prefWidth="670.0" text="Наименование" />
+                <TreeTableColumn fx:id="startDateColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Начало" />
+                <TreeTableColumn fx:id="finishDateColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Окончание " />
+                <TreeTableColumn fx:id="pvTypeColumn" maxWidth="75.0" minWidth="50.0" prefWidth="50.0" text="Тип ФО" />
+                <TreeTableColumn fx:id="pvVolume" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="ФО" />
+                <TreeTableColumn fx:id="weight" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" text="Вес шага" />
+                <TreeTableColumn fx:id="percentComplete" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="\% выполнения" />
             </columns>
             <effect>
-                <Glow/>
+                <Glow />
             </effect>
             <columnResizePolicy>
-                <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
         </TreeTableView>
     </children>
