@@ -3,10 +3,7 @@ package sample;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTreeTableCell;
 import javafx.stage.FileChooser;
 import sample.model.DataHelper;
@@ -93,6 +90,10 @@ public class Controller implements Initializable {
         percentComplete.setCellValueFactory(param -> param.getValue().getValue().getPercent());
 
         percentComplete.setCellFactory(TextFieldTreeTableCell.forTreeTableColumn());
+        percentComplete.setOnEditCommit(event -> {
+            TreeItem<TreeTableElement> currentEditStep = treeTableView.getTreeItem(event.getTreeTablePosition().getRow());
+            currentEditStep.getValue().setPercent(event.getNewValue());
+        });
     }
 
     public void save(ActionEvent actionEvent) {

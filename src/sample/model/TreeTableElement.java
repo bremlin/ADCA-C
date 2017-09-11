@@ -77,12 +77,12 @@ public class TreeTableElement {
         this.startDate = EMPTY;
         this.finishDate = EMPTY;
         this.weight = new SimpleStringProperty(String.valueOf(step.getWeight()));
-        this.percent = new SimpleStringProperty(step.getPercentComplete());
+        this.percent = new SimpleStringProperty(step.getPercentComplete() + "%");
 
         if (xmlHelper.getUdfValueHelper().get(objectId) != null) {
-            pvVolume = new SimpleStringProperty(String.valueOf(xmlHelper.getUdfValueHelper().get(objectId).getPV()));
+            pvVolume = new SimpleStringProperty(String.valueOf(xmlHelper.getUdfValueHelper().get(objectId).getPV().intValue()));
         } else {
-            pvVolume = new SimpleStringProperty("---");
+            pvVolume = new SimpleStringProperty("0");
         }
     }
 
@@ -124,5 +124,9 @@ public class TreeTableElement {
 
     public int getParentId() {
         return parentId;
+    }
+
+    public void setPercent(String percent) {
+        this.percent.set(percent + "%");
     }
 }

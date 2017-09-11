@@ -6,7 +6,7 @@ import org.jdom2.Element;
 public class UDFValue {
 
     private int stepObjectId;
-    private double PV;
+    private Double PV;
 
     public UDFValue(Element udfValueElement) {
         this.stepObjectId = Integer.parseInt(udfValueElement.getChild(XMLTypes.STEP_ID).getText());
@@ -23,7 +23,7 @@ public class UDFValue {
         return stepObjectId;
     }
 
-    public double getPV() {
+    public Double getPV() {
         return PV;
     }
 }
