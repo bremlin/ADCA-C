@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -28,7 +29,7 @@
                 <Button mnemonicParsing="false" onAction="#cancel" text="Сбросить" />
             </items>
         </ToolBar>
-        <TreeTableView fx:id="treeTableView" layoutY="80.0" prefHeight="639.0" prefWidth="1300.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+        <TreeTableView fx:id="treeTableView" layoutY="80.0" prefHeight="639.0" prefWidth="1300.0" stylesheets="@../style/treeTableStyle.css" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
             <columns>
                 <TreeTableColumn fx:id="idColumn" maxWidth="300.0" minWidth="150.0" prefWidth="150.0" text="ID" />
                 <TreeTableColumn fx:id="nameColumn" minWidth="150.0" prefWidth="670.0" text="Наименование" />

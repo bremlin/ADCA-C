@@ -11,6 +11,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 public class TreeTableElement {
+    private ItemType elementType;
+
     private SimpleStringProperty name;
     private SimpleStringProperty id;
     private SimpleStringProperty pvType;
@@ -29,10 +31,11 @@ public class TreeTableElement {
 
     public TreeTableElement(String projectName) {
         this.name = new SimpleStringProperty(projectName);
+        this.elementType = ItemType.Project;
     }
 
     public TreeTableElement(Activity activity, XMLHelper xmlHelper) {
-
+        this.elementType = ItemType.Activity;
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
         this.name = new SimpleStringProperty(activity.getName());
@@ -54,6 +57,7 @@ public class TreeTableElement {
     }
 
     public TreeTableElement(ActivityCode activityCode) {
+        this.elementType = ItemType.Code;
         this.name = new SimpleStringProperty(activityCode.getDescription());
         this.id = new SimpleStringProperty(activityCode.getName());
         this.objectId = activityCode.getObjectId();
@@ -68,6 +72,7 @@ public class TreeTableElement {
     }
 
     public TreeTableElement(Step step, XMLHelper xmlHelper) {
+        this.elementType = ItemType.Step;
         this.name = new SimpleStringProperty(step.getName());
         this.id = EMPTY;
         this.objectId = step.getObjectId();
@@ -128,5 +133,9 @@ public class TreeTableElement {
 
     public void setPercent(String percent) {
         this.percent.set(percent + "%");
+    }
+
+    public ItemType getElementType() {
+        return elementType;
     }
 }
