@@ -1,15 +1,12 @@
 package sample;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.css.PseudoClass;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTreeTableCell;
 import javafx.stage.FileChooser;
-import javafx.util.Callback;
 import sample.model.DataHelper;
 import sample.model.ItemType;
 import sample.model.TreeTableElement;
@@ -99,72 +96,26 @@ public class Controller implements Initializable {
             TreeItem<TreeTableElement> currentEditStep = treeTableView.getTreeItem(event.getTreeTablePosition().getRow());
             currentEditStep.getValue().setPercent(event.getNewValue());
         });
-        final PseudoClass projectClass = PseudoClass.getPseudoClass("project");
-        final PseudoClass codeClass = PseudoClass.getPseudoClass("code");
-        final PseudoClass activityClass = PseudoClass.getPseudoClass("activity");
-        final PseudoClass stepClass = PseudoClass.getPseudoClass("step");
 
         treeTableView.setRowFactory(tv -> new TreeTableRow<TreeTableElement>() {
             @Override
             public void updateItem(TreeTableElement item, boolean empty) {
                 super.updateItem(item, empty) ;
                 if (item == null) {
-                    setStyle("");
+                    addStyles(null, getStyleClass());
                 } else {
-                    switch (item.getElementType()) {
-                        case Project:
-                            getStyleClass().clear();
-                            getStyleClass().add("projectStyle");
-                            break;
-                        case Code:
-                            getStyleClass().clear();
-                            getStyleClass().add("codeOneStyle");
-                            break;
-                        case Activity:
-                            getStyleClass().clear();
-                            getStyleClass().add("activityStyle");
-                            break;
-                        case Step:
-                            getStyleClass().clear();
-                            getStyleClass().add("stepStyle");
-                            break;
-                    }
+                    addStyles(item.getElementType(), getStyleClass());
                 }
-
-
-//                else if (item.getElementType().equals(ItemType.Code)) {
-//                    getStyleClass().clear();
-//                    getStyleClass().add("codeOneStyle");
-////                    setStyle("-fx-background-color: #F6DEA3");
-//                } else {
-//                    setStyle("");
-//                }
             }
         });
-//        treeTableView.setRowFactory(param -> {
-//            TreeTableRow<TreeTableElement> row = new TreeTableRow<>();
-//            row.treeItemProperty().addListener((observable, oldValue, newValue) -> {
-//                if (oldValue!= null) {
-//                    switch (oldValue.getValue().getElementType()) {
-//                        case Project:
-//                            row.pseudoClassStateChanged(projectClass, param.getRoot().getChildren().contains(oldValue));
-//                            break;
-//                        case Code:
-//                            row.pseudoClassStateChanged(codeClass, param.getRoot().getChildren().contains(oldValue));
-//                            break;
-//                        case Activity:
-//                            row.pseudoClassStateChanged(activityClass, param.getRoot().getChildren().contains(oldValue));
-//                            break;
-//                        case Step:
-//                            row.pseudoClassStateChanged(stepClass, param.getRoot().getChildren().contains(oldValue));
-//                            break;
-//                    }
-//                }
-//
-//            });
-//            return row;
-//        });
+    }
 
+    private void addStyles(ItemType type, ObservableList<String> styleClass) {
+        styleClass.clear();
+        styleClass.add("cell");
+        styleClass.add("indexed-cell");
+        styleClass.add("tree-table-row-cell");
+        if (type!= null) styleClass.add(type.getStyle());
     }
 
     public void save(ActionEvent actionEvent) {

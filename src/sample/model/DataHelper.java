@@ -79,14 +79,14 @@ public class DataHelper {
 
         for (ActivityCode activityCode : xmlHelper.getActivityCodeHelper()) {
             if (activityCode.getCodeTypeObjectId() == firstFilterId) {
-                fillGroupItems(firstGroupItems, activityCode);
+                fillGroupItems(firstGroupItems, activityCode, 0);
             }
             if (secondFilterId > 0 && activityCode.getCodeTypeObjectId() == secondFilterId) {
-                fillGroupItems(secondGroupItems, activityCode);
+                fillGroupItems(secondGroupItems, activityCode, 1);
                 secondGroupActivityCode.add(activityCode.getObjectId());
             }
             if (thirdFilterId > 0 && activityCode.getCodeTypeObjectId() == thirdFilterId) {
-                fillGroupItems(thirdGroupItems, activityCode);
+                fillGroupItems(thirdGroupItems, activityCode, 2);
             }
         }
         addGroupedChild(root, 0, 0, firstGroupItems);
@@ -94,12 +94,12 @@ public class DataHelper {
         return root;
     }
 
-    private void fillGroupItems(HashMap<Integer, ArrayList<TreeTableElement>> groupItems, ActivityCode activityCode) {
+    private void fillGroupItems(HashMap<Integer, ArrayList<TreeTableElement>> groupItems, ActivityCode activityCode, int level) {
         if (groupItems.containsKey(activityCode.getParentObjectId())) {
-            groupItems.get(activityCode.getParentObjectId()).add(new TreeTableElement(activityCode));
+            groupItems.get(activityCode.getParentObjectId()).add(new TreeTableElement(activityCode, level));
         } else {
             ArrayList<TreeTableElement> tempList = new ArrayList<>();
-            tempList.add(new TreeTableElement(activityCode));
+            tempList.add(new TreeTableElement(activityCode, level));
             groupItems.put(activityCode.getParentObjectId(), tempList);
         }
     }
@@ -137,7 +137,7 @@ public class DataHelper {
                 }
 
                 for (Integer activityCodeId : activityCodeIdInNode) {
-                    TreeItem newItem = new TreeItem(new TreeTableElement(xmlHelper.getActivityCodeHelper().getActivityCodeById(activityCodeId)));
+                    TreeItem newItem = new TreeItem(new TreeTableElement(xmlHelper.getActivityCodeHelper().getActivityCodeById(activityCodeId), 1));
                     codeNode.getChildren().add(newItem);
                     addActivityToCodeWithList(newItem, activityCodeId, activitiesIdInNode);
                 }

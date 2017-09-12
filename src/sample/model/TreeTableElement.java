@@ -1,6 +1,5 @@
 package sample.model;
 
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import service.xml.Activity;
 import service.xml.ActivityCode;
@@ -26,8 +25,6 @@ public class TreeTableElement {
     private SimpleStringProperty pvVolume;
 
     private static SimpleStringProperty EMPTY = new SimpleStringProperty("");
-    private static SimpleDoubleProperty EMPTY_DOUBLE = new SimpleDoubleProperty(0.00);
-
 
     public TreeTableElement(String projectName) {
         this.name = new SimpleStringProperty(projectName);
@@ -56,8 +53,14 @@ public class TreeTableElement {
 
     }
 
-    public TreeTableElement(ActivityCode activityCode) {
-        this.elementType = ItemType.Code;
+    public TreeTableElement(ActivityCode activityCode, int level) {
+        if (level == 0) {
+            this.elementType = ItemType.Code;
+        } else if (level == 1) {
+            this.elementType = ItemType.CodeTwo;
+        } else {
+            this.elementType = ItemType.CodeThree;
+        }
         this.name = new SimpleStringProperty(activityCode.getDescription());
         this.id = new SimpleStringProperty(activityCode.getName());
         this.objectId = activityCode.getObjectId();
