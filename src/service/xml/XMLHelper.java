@@ -19,6 +19,7 @@ public class XMLHelper {
     private UDFValueHelper udfValueHelper;
 
     private String projectName;
+    private String projectId;
 
     public XMLHelper(File xmlFile) {
         SAXBuilder saxBuilder = new SAXBuilder();
@@ -26,6 +27,7 @@ public class XMLHelper {
             Document document = saxBuilder.build(xmlFile);
             Element root = document.getRootElement();
             projectName = root.getAttributeValue(XMLTypes.PROJECT_ELEMENT);
+            projectId = root.getAttributeValue(XMLTypes.OBJECT_ID);
             List<Element> rootChild = root.getChildren();
 
             getElements(rootChild);
@@ -114,5 +116,9 @@ public class XMLHelper {
 
     public String getProjectName() {
         return projectName;
+    }
+
+    public String getProjectId() {
+        return projectId;
     }
 }

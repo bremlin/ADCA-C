@@ -11,6 +11,7 @@ import sample.model.DataHelper;
 import sample.model.ItemType;
 import sample.model.TreeTableElement;
 import service.xml.XMLHelper;
+import sql.SQLController;
 
 import java.io.File;
 import java.net.URL;
@@ -53,6 +54,7 @@ public class Controller implements Initializable {
     private XMLHelper xmlHelper;
     private DataHelper dataHelper = new DataHelper();
     private DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+    private SQLController sqlController;
 
     public void loadProject() {
         FileChooser fileChooser = new FileChooser();
@@ -62,6 +64,7 @@ public class Controller implements Initializable {
 
         if (xmlFile != null) {
             xmlHelper = new XMLHelper(xmlFile);
+            sqlController = new SQLController(xmlHelper.getProjectId());
             dataHelper.setData(xmlHelper);
             treeTableView.setRoot(dataHelper.getRoot());
             treeTableView.setEditable(true);

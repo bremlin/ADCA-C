@@ -3,7 +3,7 @@
 .codeTwoRow { -fx-background-color: #A06FDB}
 .codeThreeRow { -fx-background-color: #31439E}
 .activityRow { -fx-background-color: #8ED5D2}
-.stepRow { -fx-background-color: #F6DEA3}
+.stepRow { -fx-background-color: rgba(112, 246, 184, 0.4);}
 
 .projectRow:selected {
     -fx-background-color: #7b87dc;
@@ -23,7 +23,7 @@
     -fx-font-weight: bold;
     -fx-text-fill: rgb(49, 89, 23);
 }
-.stepRow:selected { -fx-background-color: #f6cd67;
+.stepRow:selected { -fx-background-color: rgba(11, 171, 166, 0.57);
     -fx-font-weight: bold;
     -fx-text-fill: rgb(49, 89, 23);
 }
