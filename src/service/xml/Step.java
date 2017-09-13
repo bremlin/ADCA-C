@@ -23,9 +23,11 @@ public class Step extends DefaultMutableTreeNode {
         this.weight = Double.parseDouble(stepElement.getChild(XMLTypes.WEIGHT).getText());
         this.weightPercent = Double.parseDouble(stepElement.getChild(XMLTypes.WEIGHT_PERCENT).getText());
 
-
-
-        this.percentComplete = stepElement.getChild(XMLTypes.PERCENT_COMPLETE).getText();
+        if (sqlController.getStepValue(objectId)!= null) {
+            this.percentComplete = sqlController.getStepValue(objectId);
+        } else {
+            this.percentComplete = stepElement.getChild(XMLTypes.PERCENT_COMPLETE).getText();
+        }
     }
 
     public String getName() {

@@ -1,11 +1,14 @@
 package sql;
 
 import java.sql.*;
+import java.util.HashMap;
 
 public class SQLController {
     public static Connection connection;
     public static Statement statement;
     public static ResultSet resultSet;
+
+    private HashMap<Integer, String> stepValue = new HashMap<>();
 
     public SQLController(String projectId) {
 
@@ -22,6 +25,7 @@ public class SQLController {
         }
         conn(projectId);
         createTables();
+        fillStepMap();
     }
 
     public void conn(String projectId) {
@@ -57,6 +61,22 @@ public class SQLController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private void fillStepMap() {
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT MAX(id) as id, step_id, percent_complete FROM step_complete");
+            while (resultSet.next()) {
+                stepValue.put(new Integer(resultSet.getInt("step_id")), resultSet.getString("percent_complete"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getStepValue(Integer stepId) {
+        return stepValue.getOrDefault(stepId, null);
     }
 
 
