@@ -17,17 +17,18 @@ public class SQLController {
                 System.out.println("The driver name is " + meta.getDriverName());
                 System.out.println("A new database has been created.");
             }
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        conn(projectId);
+        createTables();
     }
 
-    public static void Conn(String projectId) {
+    public void conn(String projectId) {
         connection = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:TEST1.s3db");
+            connection = DriverManager.getConnection("jdbc:sqlite:" + System.getProperty("user.dir") + "\\" + projectId + ".db");
             System.out.println("База Подключена!");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -35,7 +36,7 @@ public class SQLController {
 
     }
 
-    public static void CreateTables() {
+    public void createTables() {
         try {
             statement = connection.createStatement();
             statement.execute("CREATE TABLE if not exists 'step_complete' " +
@@ -47,4 +48,16 @@ public class SQLController {
             e.printStackTrace();
         }
     }
+
+    public void insertPercentComplete(Integer step_id, String value) {
+        try {
+            statement = connection.createStatement();
+            statement.execute("INSERT INTO step_complete ('step_id', 'percent_complete', 'date', 'user')" +
+                    "VALUES (" + step_id + ", " + value + ", CURRENT_TIMESTAMP , + '" + System.getProperty("user.name") + "')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

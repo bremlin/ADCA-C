@@ -31,6 +31,10 @@ public class Controller implements Initializable {
 
     @FXML
     public Label currentDate;
+    @FXML
+    public ComboBox filterOneType;
+    @FXML
+    public ComboBox filterOneValue;
 
     @FXML
     TreeTableView<TreeTableElement> treeTableView;
@@ -63,8 +67,7 @@ public class Controller implements Initializable {
         File xmlFile = fileChooser.showOpenDialog(null);
 
         if (xmlFile != null) {
-            xmlHelper = new XMLHelper(xmlFile);
-            sqlController = new SQLController(xmlHelper.getProjectId());
+            xmlHelper = new XMLHelper(xmlFile, sqlController);
             dataHelper.setData(xmlHelper);
             treeTableView.setRoot(dataHelper.getRoot());
             treeTableView.setEditable(true);
@@ -80,8 +83,12 @@ public class Controller implements Initializable {
     }
 
     private void setGroupData() {
-        if (groupOne.getItems().size() > 0) groupOne.getItems().clear();
+        if (groupOne.getItems().size() > 0) {
+            groupOne.getItems().clear();
+            filterOneType.getItems().clear();
+        }
         groupOne.getItems().addAll(dataHelper.getGroupList());
+        filterOneType.getItems().addAll(dataHelper.getGroupList());
     }
 
     private void columnSettings() {
@@ -97,7 +104,10 @@ public class Controller implements Initializable {
         percentComplete.setCellFactory(TextFieldTreeTableCell.forTreeTableColumn());
         percentComplete.setOnEditCommit(event -> {
             TreeItem<TreeTableElement> currentEditStep = treeTableView.getTreeItem(event.getTreeTablePosition().getRow());
-            currentEditStep.getValue().setPercent(event.getNewValue());
+            if (currentEditStep.getValue().getElementType() == ItemType.Step) {
+                currentEditStep.getValue().setPercent(event.getNewValue());
+                sqlController.insertPercentComplete(currentEditStep.getValue().getObjectId(), event.getNewValue());
+            }
         });
 
         treeTableView.setRowFactory(tv -> new TreeTableRow<TreeTableElement>() {
@@ -160,6 +170,7 @@ public class Controller implements Initializable {
 
     public void cancel() {
         groupOne.getSelectionModel().clearSelection();
+        filterOneType.getSelectionModel().clearSelection();
     }
 
     @Override

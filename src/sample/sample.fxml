@@ -22,8 +22,8 @@
                 <ComboBox fx:id="groupThree" prefWidth="180.0" />
                 <Separator prefHeight="30.0" prefWidth="16.0" />
                 <Label text="Фильтр:" />
-                <ComboBox fx:id="filterOne" onAction="#filter" prefWidth="180.0" />
-                <ComboBox fx:id="filterTwo" onAction="#filter" prefWidth="180.0" />
+                <ComboBox fx:id="filterOneType" onAction="#filter" prefWidth="180.0" />
+                <ComboBox fx:id="filterOneValue" onAction="#filter" prefWidth="180.0" />
                 <Separator prefHeight="30.0" prefWidth="16.0" />
                 <Button mnemonicParsing="false" onAction="#apply" text="Применить" />
                 <Button mnemonicParsing="false" onAction="#cancel" text="Сбросить" />

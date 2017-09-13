@@ -4,6 +4,7 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
+import sql.SQLController;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,16 +22,18 @@ public class XMLHelper {
     private String projectName;
     private String projectId;
 
-    public XMLHelper(File xmlFile) {
+    public XMLHelper(File xmlFile, SQLController sqlController) {
         SAXBuilder saxBuilder = new SAXBuilder();
         try {
             Document document = saxBuilder.build(xmlFile);
             Element root = document.getRootElement();
             projectName = root.getAttributeValue(XMLTypes.PROJECT_ELEMENT);
             projectId = root.getAttributeValue(XMLTypes.OBJECT_ID);
+            sqlController = new SQLController(projectId);
+
             List<Element> rootChild = root.getChildren();
 
-            getElements(rootChild);
+            getElements(rootChild, sqlController);
             if (checkElements()) {
 
             }
@@ -40,7 +43,7 @@ public class XMLHelper {
         }
     }
 
-    private void getElements(List<Element> elements) {
+    private void getElements(List<Element> elements, SQLController sqlController) {
         for (Element element : elements) {
             String elementName = element.getName();
             if (elementName.equals(XMLTypes.ACTIVITIES_ELEMENT)) {
@@ -52,7 +55,7 @@ public class XMLHelper {
             } else if (elementName.equals(XMLTypes.ACTIVITY_CODE_ASSIGNMENTS)) {
                 activityCodeAssignmentHelper = new ActivityCodeAssignmentHelper(element);
             } else if (elementName.equals(XMLTypes.ACTIVITY_STEPS)) {
-                stepHelper = new StepHelper(element);
+                stepHelper = new StepHelper(element, sqlController);
             } else if (elementName.equals(XMLTypes.UDF_VALUES)) {
                 udfValueHelper = new UDFValueHelper(element);
             } else {
