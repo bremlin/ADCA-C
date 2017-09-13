@@ -23,7 +23,7 @@ public class SQLController {
         }
     }
 
-    public static void Conn() {
+    public static void Conn(String projectId) {
         connection = null;
         try {
             Class.forName("org.sqlite.JDBC");
@@ -35,10 +35,14 @@ public class SQLController {
 
     }
 
-    public static void CreateDB() {
+    public static void CreateTables() {
         try {
             statement = connection.createStatement();
-            statement.execute("CREATE TABLE if not exists 'users' ('id' INTEGER PRIMARY KEY AUTOINCREMENT, 'name' text, 'phone' INT);");
+            statement.execute("CREATE TABLE if not exists 'step_complete' " +
+                    "('id' INTEGER PRIMARY KEY AUTOINCREMENT, 'step_id' INT, 'percent_complete' DOUBLE, 'date' DATE, 'user' text);");
+
+            statement.execute("CREATE TABLE if not exists 'config' " +
+                    "('id' INTEGER PRIMARY KEY AUTOINCREMENT, 'group_type' INT, 'value' INT);");
         } catch (SQLException e) {
             e.printStackTrace();
         }
