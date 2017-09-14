@@ -11,6 +11,7 @@ import sample.model.DataHelper;
 import sample.model.ItemType;
 import sample.model.TreeTableElement;
 import service.xml.XMLHelper;
+import sql.EmailSender;
 import sql.SQLController;
 
 import java.io.File;
@@ -67,7 +68,9 @@ public class Controller implements Initializable {
         File xmlFile = fileChooser.showOpenDialog(null);
 
         if (xmlFile != null) {
-            xmlHelper = new XMLHelper(xmlFile, sqlController);
+            xmlHelper = new XMLHelper(xmlFile);
+            sqlController = new SQLController(xmlHelper.getProjectId());
+            xmlHelper.fillElements(sqlController);
             dataHelper.setData(xmlHelper);
             treeTableView.setRoot(dataHelper.getRoot());
             treeTableView.setEditable(true);
@@ -131,8 +134,9 @@ public class Controller implements Initializable {
         if (type!= null) styleClass.add(type.getStyle());
     }
 
-    public void save(ActionEvent actionEvent) {
-
+    public void save() {
+        EmailSender emailSender = new EmailSender();
+        emailSender.sendEmail(xmlHelper.getEmail(), sqlController.getDbPath());
     }
 
     public void groupOneAction() {

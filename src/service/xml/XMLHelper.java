@@ -22,24 +22,32 @@ public class XMLHelper {
     private String projectName;
     private String projectId;
 
-    public XMLHelper(File xmlFile, SQLController sqlController) {
+    private Element root;
+
+    private String email;
+
+    public XMLHelper(File xmlFile) {
         SAXBuilder saxBuilder = new SAXBuilder();
         try {
             Document document = saxBuilder.build(xmlFile);
-            Element root = document.getRootElement();
+            root = document.getRootElement();
             projectName = root.getAttributeValue(XMLTypes.PROJECT_ELEMENT);
             projectId = root.getAttributeValue(XMLTypes.OBJECT_ID);
-            sqlController = new SQLController(projectId);
+            email = root.getAttributeValue("email");
 
-            List<Element> rootChild = root.getChildren();
 
-            getElements(rootChild, sqlController);
-            if (checkElements()) {
-
-            }
 
         } catch (JDOMException | IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void fillElements(SQLController sqlController) {
+        sqlController = new SQLController(projectId);
+        List<Element> rootChild = root.getChildren();
+        getElements(rootChild, sqlController);
+        if (checkElements()) {
+
         }
     }
 
@@ -123,5 +131,9 @@ public class XMLHelper {
 
     public String getProjectId() {
         return projectId;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

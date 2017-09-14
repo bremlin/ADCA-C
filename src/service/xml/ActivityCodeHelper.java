@@ -3,7 +3,6 @@ package service.xml;
 import org.jdom2.Element;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 
 public class ActivityCodeHelper extends ArrayList<ActivityCode> {

@@ -7,12 +7,14 @@ public class SQLController {
     public static Connection connection;
     public static Statement statement;
     public static ResultSet resultSet;
+    private String dbPath;
 
     private HashMap<Integer, String> stepValue = new HashMap<>();
 
     public SQLController(String projectId) {
 
-        String url = "jdbc:sqlite:" + System.getProperty("user.dir") + "\\" + projectId + ".db";
+        dbPath = System.getProperty("user.dir") + "\\" + projectId + ".db";
+        String url = "jdbc:sqlite:" + dbPath;
 
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
@@ -32,7 +34,7 @@ public class SQLController {
         connection = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:" + System.getProperty("user.dir") + "\\" + projectId + ".db");
+            connection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
             System.out.println("База Подключена!");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -79,5 +81,7 @@ public class SQLController {
         return stepValue.getOrDefault(stepId, null);
     }
 
-
+    public String getDbPath() {
+        return dbPath;
+    }
 }

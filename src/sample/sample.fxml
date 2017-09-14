@@ -10,7 +10,7 @@
         <ToolBar prefHeight="40.0" prefWidth="1300.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <items>
                 <Button mnemonicParsing="false" onAction="#loadProject" text="Загрузить" />
-                <Button mnemonicParsing="false" onAction="#save" text="Сохранить" />
+                <Button mnemonicParsing="false" onAction="#save" text="Отправить данные" />
                 <Label fx:id="currentDate" alignment="CENTER" contentDisplay="CENTER" text="currentDate" />
             </items>
         </ToolBar>
